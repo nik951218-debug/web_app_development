@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}功德榜 - 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9 col-lg-7">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-warning">🏆 功德榜</h1>
+            <p class="lead text-muted">感謝以下信眾的慷慨解囊，願神明保佑平安順遂。</p>
+        </div>
+
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-warning text-dark">
+                            <tr>
+                                <th class="ps-4">排名</th>
+                                <th>信眾暱稱</th>
+                                <th>累積捐獻</th>
+                                <th class="pe-4 text-end">最後捐獻時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if leaderboard %}
+                                {% for row in leaderboard %}
+                                <tr class="{{ 'table-light' if loop.index <= 3 }}">
+                                    <td class="ps-4 fw-bold">
+                                        {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}#{{ loop.index }}{% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle bg-secondary text-white me-2 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; font-size: 0.8rem;">
+                                                {{ row['nickname'][0] if row['nickname'] else '匿名' }}
+                                            </div>
+                                            {{ row['nickname'] }}
+                                        </div>
+                                    </td>
+                                    <td class="fw-bold text-primary">$ {{ row['total_amount'] }}</td>
+                                    <td class="pe-4 text-end text-muted small">{{ row['last_donation'].split(' ')[0] }}</td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center py-5 text-muted">目前暫無捐獻紀錄，歡迎踴躍支持。</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ url_for('main.donate') }}" class="btn btn-primary btn-lg px-5">我也要捐獻</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

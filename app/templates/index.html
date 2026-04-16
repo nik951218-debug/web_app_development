@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}首頁 - ✨ 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-dark text-white rounded-3 shadow text-center position-relative overflow-hidden" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+    <div class="container py-5 position-relative" style="z-index: 2;">
+        <h1 class="display-4 fw-bold">尋求心靈的指引與啟示</h1>
+        <p class="fs-4">結合傳統智慧與現代美學，為您的疑惑提供一份溫暖的方向。</p>
+        <hr class="my-4 border-light opacity-25">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{{ url_for('draw.draw_fortune') }}" class="btn btn-warning btn-lg px-4 me-sm-3 fw-bold">立即求籤</a>
+            <a href="{{ url_for('tarot.tarot_home') }}" class="btn btn-outline-light btn-lg px-4">塔羅占卜</a>
+        </div>
+    </div>
+    <!-- 裝飾用背景元素 (模擬星星) -->
+    <div class="position-absolute translate-middle" style="top: 20%; left: 10%; width: 5px; height: 5px; background: white; border-radius: 50%; opacity: 0.5;"></div>
+    <div class="position-absolute translate-middle" style="top: 15%; left: 80%; width: 3px; height: 3px; background: white; border-radius: 50%; opacity: 0.7;"></div>
+    <div class="position-absolute translate-middle" style="top: 70%; left: 30%; width: 4px; height: 4px; background: white; border-radius: 50%; opacity: 0.4;"></div>
+</div>
+
+<div class="row g-4 pb-5">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm hover-translate">
+            <div class="card-body p-4 text-center">
+                <div class="display-6 mb-3 text-warning">🏮</div>
+                <h3 class="card-title h4">線上求籤</h3>
+                <p class="card-text text-muted">包含觀音靈籤、月老籤等。在靜心祈告後，搖動籤筒，獲得神明對您近況的指引。</p>
+                <a href="{{ url_for('draw.draw_fortune') }}" class="btn btn-primary">開始抽籤</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm hover-translate">
+            <div class="card-body p-4 text-center">
+                <div class="display-6 mb-3 text-info">🃏</div>
+                <h3 class="card-title h4">塔羅占卜</h3>
+                <p class="card-text text-muted">透過卡牌與宇宙能量連結。支援單張或多張牌陣，深入解析您的內心世界的真相。</p>
+                <a href="{{ url_for('tarot.tarot_home') }}" class="btn btn-primary">開啟占卜</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm hover-translate">
+            <div class="card-body p-4 text-center">
+                <div class="display-6 mb-3 text-danger">🍀</div>
+                <h3 class="card-title h4">每日運勢</h3>
+                <p class="card-text text-muted">根據您的生辰與當日星象，為您計算今日的綜合、財富、愛情與事業運勢指標。</p>
+                <a href="{{ url_for('user.daily') }}" class="btn btn-primary">查看運勢</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white p-5 rounded-3 shadow-sm text-center mb-5">
+    <h2 class="h3 mb-3">支持我們營運</h2>
+    <p class="text-muted mb-4">如果您覺得本系統對您有幫助，歡迎捐獻些許「香油錢」支持開發團隊。您的善舉將被記錄在功德榜上。</p>
+    <a href="{{ url_for('main.donate') }}" class="btn btn-outline-warning btn-lg">捐香油錢</a>
+    <a href="{{ url_for('main.ranking') }}" class="btn btn-link text-muted ms-3">查看功德榜</a>
+</div>
+{% endblock %}

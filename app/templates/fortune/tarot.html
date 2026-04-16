@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}塔羅占卜 - 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card border-0 shadow-sm overflow-hidden mb-4">
+            <div class="bg-primary text-white p-4 text-center" style="background: linear-gradient(135deg, #4834d4 0%, #686de0 100%);">
+                <h1 class="h3 mb-0 fw-bold">🃏 塔羅牌占卜</h1>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-5">
+                    <p class="lead text-muted">閉上雙眼，在心中默念您的問題，並選擇適合的牌陣。</p>
+                </div>
+
+                <form method="post" action="{{ url_for('tarot.draw') }}">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <div class="form-check card-select p-3 border rounded h-100 position-relative">
+                                <input class="form-check-input stretched-link d-none" type="radio" name="count" id="one-card" value="1" checked>
+                                <label class="form-check-label w-100" for="one-card">
+                                    <h5 class="fw-bold mb-2">單張解析 (One Card)</h5>
+                                    <p class="small text-muted mb-0">針對單一問題取得即時、直接的核心指引。</p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check card-select p-3 border rounded h-100 position-relative">
+                                <input class="form-check-input stretched-link d-none" type="radio" name="count" id="three-cards" value="3">
+                                <label class="form-check-label w-100" for="three-cards">
+                                    <h5 class="fw-bold mb-2">三張牌陣 (Past/Present/Future)</h5>
+                                    <p class="small text-muted mb-0">深入了解問題的過去背景、目前現況與未來趨勢。</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="question" class="form-label fw-bold">想請教塔羅牌的問題</label>
+                        <textarea class="form-control" id="question" name="question" rows="3" placeholder="例如：我與某某人的關係發展如何？或我下半年的工作運勢？"></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold py-3 shadow-sm">
+                            靜置心神，開始抽牌
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.card-select {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+.card-select:hover {
+    background-color: #f8f9fa;
+    border-color: #686de0 !important;
+}
+.form-check-input:checked + .form-check-label {
+    /* radio 勾選時的父容器樣式 */
+}
+/* 透過 JS 來動態改變選中樣式 */
+.card-select.active {
+    background-color: #eef2ff;
+    border-color: #4834d4 !important;
+    box-shadow: 0 0 0 0.25rem rgba(72, 52, 212, 0.1);
+}
+</style>
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.card-select').forEach(card => {
+    card.addEventListener('click', function() {
+        document.querySelectorAll('.card-select').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+// 預設選中第一個
+document.querySelector('.card-select').classList.add('active');
+</script>
+{% endblock %}
+{% endblock %}

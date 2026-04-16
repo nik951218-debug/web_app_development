@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}塔羅占卜結果 - 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-11 col-lg-10">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-primary">占卜結果</h1>
+            <p class="lead text-muted">卡牌已經揭曉，這是宇宙給您的訊息。</p>
+        </div>
+
+        <div class="row g-4 justify-content-center mb-5">
+            {% for card in cards %}
+            <div class="col-md-{{ 12 // count if count > 0 else 12 }}">
+                <div class="card h-100 border-0 shadow-sm text-center">
+                    <div class="card-header bg-transparent border-0 pt-4">
+                        <h4 class="fw-bold mb-0">{{ card['name'] }}</h4>
+                        <span class="badge {{ 'bg-danger' if card['is_reversed'] else 'bg-success' }} mt-2">
+                            {{ '逆位 (Reversed)' if card['is_reversed'] else '正位 (Upright)' }}
+                        </span>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="mb-4 d-flex justify-content-center">
+                            <!-- 模擬塔羅牌圖片容器 -->
+                            <div class="tarot-card-visual {{ 'is-reversed' if card['is_reversed'] }}" style="width: 150px; height: 260px; background: #2c3e50; border: 4px solid #f1c40f; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                                <div class="text-center">
+                                    <div class="fs-1">🌌</div>
+                                    <small class="d-block mt-2 opacity-50">{{ card['type'] }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="fw-bold mb-3 border-bottom pb-2">牌義解析</h5>
+                        <p class="text-muted text-start card-meaning">
+                            {{ card['meaning_reversed'] if card['is_reversed'] else card['meaning_upright'] }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="bg-white p-5 rounded-3 shadow-sm mb-5">
+            <h5 class="fw-bold mb-4 text-center">📜 綜合分析建議</h5>
+            <p class="mb-0 text-muted" style="line-height: 1.8;">
+                {% if count == 1 %}
+                    這張牌代表了目前的中心能量。請專注於它所帶來的啟示，這通常是您潛意識中最直接的反映。
+                {% else %}
+                    這三張牌串連起了一段時間序列或邏輯關係。從左至右分別代表了問題的源頭、當下的挑戰與未來的潛在結果。請留意牌與牌之間可能存在的關聯性。
+                {% endif %}
+                <br><br>
+                建議您將這些訊息與現實情況對應，保持開放的心態，不要受限於表面文字的吉凶。
+            </p>
+        </div>
+
+        <div class="text-center pb-5">
+            <a href="{{ url_for('tarot.tarot_home') }}" class="btn btn-primary btn-lg px-5">再次占卜</a>
+            <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary btn-lg px-5 ms-md-3 mt-3 mt-md-0">回首頁</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.tarot-card-visual {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.tarot-card-visual.is-reversed {
+    transform: rotate(180deg);
+}
+.card-meaning {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+</style>
+{% endblock %}

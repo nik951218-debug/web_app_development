@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}註冊 - 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <h1 class="h3 fw-bold">加入我們</h1>
+                    <p class="text-muted">建立帳號以解鎖更多功能</p>
+                </div>
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">登入帳號 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="username" name="username" required placeholder="請輸入您偏好的帳號">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">密碼 <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="password" name="password" required placeholder="請輸入至少 6 位數密碼">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nickname" class="form-label">顯示暱稱 <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="nickname" name="nickname" required placeholder="大家怎麼稱呼您？">
+                    </div>
+                    <div class="mb-4">
+                        <label for="birthday" class="form-label">生日 (選填)</label>
+                        <input type="date" class="form-control" id="birthday" name="birthday">
+                        <div class="form-text">提供生日可讓我們為您計算每日運勢。</div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-warning btn-lg fw-bold">建立帳號</button>
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    <p class="mb-0 text-muted">已經有帳號了？ <a href="{{ url_for('auth.login') }}" class="text-decoration-none">登入</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

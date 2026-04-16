@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}線上求籤 - 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm overflow-hidden">
+            <div class="bg-warning p-4 text-center">
+                <h1 class="h3 mb-0 fw-bold">⛩️ 線上求籤</h1>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <div class="mb-5 text-center" id="draw-animation-container">
+                    <div id="fortune-stick-container" class="my-4">
+                        <span style="font-size: 5rem;" id="draw-icon">🏮</span>
+                    </div>
+                    <p class="text-muted" id="instruction-text">請在心中默念您的問題，然後選擇籤種進行求籤。</p>
+                </div>
+
+                <form method="post" id="draw-form">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">1. 選擇籤詩種類</label>
+                        <select class="form-select form-select-lg" name="fortune_type">
+                            <option value="觀音靈籤">觀音靈籤 (問事、指引)</option>
+                            <option value="月老籤">月老靈籤 (感情、緣分)</option>
+                            <option value="財神籤">財神靈籤 (財運、生意)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="question" class="form-label fw-bold">2. 您想問的問題 (選填)</label>
+                        <textarea class="form-control" id="question" name="question" rows="3" placeholder="例如：尋求今日的工作運勢指引..."></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg py-3 fw-bold" id="start-draw-btn">
+                            確認並開始搖籤
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-4 p-3 bg-white rounded shadow-sm">
+            <h5 class="h6 fw-bold border-bottom pb-2 mb-3">求籤步驟：</h5>
+            <ol class="small text-muted mb-0">
+                <li>靜心入神，並在心中默念您的問題。</li>
+                <li>選擇合適的籤詩種類。</li>
+                <li>點擊「開始搖籤」按鈕。</li>
+                <li>系統將隨機為您擲筊並抽取一支靈籤。</li>
+            </ol>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('draw-form').addEventListener('submit', function(e) {
+    const btn = document.getElementById('start-draw-btn');
+    const icon = document.getElementById('draw-icon');
+    const text = document.getElementById('instruction-text');
+    
+    // 阻止表單立即送出以顯示動畫
+    e.preventDefault();
+    
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> 正在搖動籤筒...';
+    text.innerHTML = '正在感應靈力，請稍候...';
+    
+    // 加入搖動動畫 Class
+    icon.classList.add('shake-animation');
+    
+    setTimeout(() => {
+        this.submit();
+    }, 2000);
+});
+</script>
+
+<style>
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+.shake-animation {
+    display: inline-block;
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}每日運勢 - 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm overflow-hidden mb-4">
+            <div class="bg-danger text-white p-4 text-center" style="background: linear-gradient(135deg, #eb4d4b 0%, #ff7979 100%);">
+                <h1 class="h3 mb-1 fw-bold">🍀 每日運勢</h1>
+                <p class="mb-0 opacity-75">{{ date }}</p>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-5">
+                    <p class="text-muted italic mb-3">「 {{ motto }} 」</p>
+                    <div class="h1 fw-bold text-danger">
+                        {% for i in range(indices['overall']) %}⭐{% endfor %}
+                        <span class="text-muted opacity-25">{% for i in range(5 - indices['overall']) %}⭐{% endfor %}</span>
+                    </div>
+                    <small class="text-muted">本日綜合評分</small>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded text-center">
+                            <div class="fw-bold mb-1">💼 事業運勢</div>
+                            <div class="text-warning">
+                                {% for i in range(indices['work']) %}★{% endfor %}
+                                <span class="text-muted opacity-25">{% for i in range(5 - indices['work']) %}★{% endfor %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded text-center">
+                            <div class="fw-bold mb-1">❤️ 愛情運勢</div>
+                            <div class="text-danger">
+                                {% for i in range(indices['love']) %}★{% endfor %}
+                                <span class="text-muted opacity-25">{% for i in range(5 - indices['love']) %}★{% endfor %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded text-center">
+                            <div class="fw-bold mb-1">💰 財富運勢</div>
+                            <div class="text-success">
+                                {% for i in range(indices['wealth']) %}★{% endfor %}
+                                <span class="text-muted opacity-25">{% for i in range(5 - indices['wealth']) %}★{% endfor %}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 bg-light rounded text-center">
+                            <div class="fw-bold mb-1">幸運色</div>
+                            <div class="fw-bold text-primary">天空藍</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="{{ url_for('draw.draw_fortune') }}" class="btn btn-danger btn-lg px-5 shadow-sm">針對特定問題求籤</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

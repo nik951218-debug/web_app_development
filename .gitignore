@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Flask/SQLite
+instance/
+*.db
+
+# IDEs
+.vscode/
+.idea/
+.agents/

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}求籤結果 - 線上算命系統{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-7">
+        <div class="card border-0 shadow-lg overflow-hidden">
+            <div class="bg-dark text-warning p-4 text-center">
+                <h1 class="h4 mb-0 fw-bold">{{ fortune['type'] }}</h1>
+            </div>
+            <div class="card-body p-4 p-md-5 bg-white">
+                <div class="text-center mb-5">
+                    <span class="badge bg-warning text-dark mb-2 px-3 py-2 fs-6">第 {{ fortune['number'] }} 籤</span>
+                    <h2 class="display-6 fw-bold text-danger">{{ fortune['level'] }}</h2>
+                </div>
+
+                <div class="fortune-poem text-center mb-5 p-4 bg-light rounded-3">
+                    <pre class="fs-4 fw-bold mb-0" style="font-family: 'Noto Serif TC', serif; white-space: pre-wrap; line-height: 2;">{{ fortune['poem'] }}</pre>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <section>
+                            <h5 class="fw-bold border-start border-4 border-primary ps-2 mb-3">解曰</h5>
+                            <p class="text-muted">{{ fortune['explain'] or '暫無解曰資料。' }}</p>
+                        </section>
+                    </div>
+                    <div class="col-md-6">
+                        <section>
+                            <h5 class="fw-bold border-start border-4 border-info ps-2 mb-3">仙機 / 詳細指引</h5>
+                            <p class="text-muted" style="white-space: pre-line;">{{ fortune['detail'] or '心誠則靈，順勢而為。' }}</p>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <hr class="my-4">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a href="{{ url_for('draw.draw_fortune') }}" class="btn btn-outline-primary px-4">再次求籤</a>
+                        <a href="{{ url_for('user.history') }}" class="btn btn-primary px-4">查看我的紀錄</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert alert-secondary mt-4 text-center small shadow-sm">
+            提示：求籤結果僅供參考，生活中最重要的依然是您的決斷與行動。
+        </div>
+    </div>
+</div>
+{% endblock %}
